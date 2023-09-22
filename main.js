@@ -185,6 +185,7 @@ class TimeClass{
 
 let Time = new TimeClass()
 
+let GameSettings = null
 
 async function bootUp(){
     await fetch('./twoFaceEngine/builtin/scripts/scripts.json').then(response => response.json()).then(json => {
@@ -208,7 +209,7 @@ async function bootUp(){
         await new Promise(r => setTimeout(r, 10));
     }
 
-    let GameSettings = new GameSettingsClass()
+    GameSettings = new GameSettingsClass()
 
 
     function update(){
