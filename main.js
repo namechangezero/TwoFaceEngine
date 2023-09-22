@@ -186,29 +186,41 @@ class TimeClass{
 let Time = new TimeClass()
 
 
-function update(){
-    Time.reset()
-    World.draw()
-    setTimeout(update, Time.waitAfterFrame)
+async function bootUp(){
+    await fetch('./twoFaceEngine/builtin/scripts/scripts.json').then(response => response.json()).then(json => {
+        for(let script of json){
+            let scriptElement = document.createElement('script')
+            scriptElement.src = "./twoFaceEngine/builtin/scripts/"+script
+            document.head.appendChild(scriptElement)
+        }
+    })
+    
+    // fetch /scripts/scripts.json and add scripts to head in document
+    await fetch('./scripts/scripts.json').then(response => response.json()).then(json => {
+        for(let script of json){
+            let scriptElement = document.createElement('script')
+            scriptElement.src = script
+            document.head.appendChild(scriptElement)
+        }
+    })
+
+    while (typeof GameSettingsClass == 'undefined'){
+        await new Promise(r => setTimeout(r, 10));
+    }
+
+    let GameSettings = new GameSettingsClass()
+
+
+    function update(){
+        Time.reset()
+        World.draw()
+        setTimeout(update, Time.waitAfterFrame)
+    }
+    
+
+    update()
+
 }
 
-update()
-
-// load builtin scripts
-fetch('./twoFaceEngine/builtin/scripts/scripts.json').then(response => response.json()).then(json => {
-    for(let script of json){
-        let scriptElement = document.createElement('script')
-        scriptElement.src = "./twoFaceEngine/builtin/scripts/"+script
-        document.head.appendChild(scriptElement)
-    }
-})
-
-// fetch /scripts/scripts.json and add scripts to head in document
-fetch('./scripts/scripts.json').then(response => response.json()).then(json => {
-    for(let script of json){
-        let scriptElement = document.createElement('script')
-        scriptElement.src = script
-        document.head.appendChild(scriptElement)
-    }
-})
+bootUp()
 
