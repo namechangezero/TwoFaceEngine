@@ -1,7 +1,7 @@
 
 let canvas = document.getElementById('screen')
 let ctx = canvas.getContext('2d')
-let canvas_size = {"x":window.innerWidth - 20, "y":window.innerHeight - 20}
+let canvas_size = {"x":window.innerWidth - 20, "y":window.innerHeight - 20} // windowManager access those
 
 canvas.width = canvas_size.x
 canvas.height = canvas_size.y
