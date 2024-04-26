@@ -15,7 +15,7 @@ class GameSettingsClass{
     }
 
     loadGameSettingsJson(){
-        fetch('../../../GameSettings.json').then(response => response.json()).then(json => {
+        fetch('GameSettings.json').then(response => response.json()).then(json => {
             this.setGameTitle(json.GameWindowTitle);
             this.setFPS(json.default_framerate);
         })
